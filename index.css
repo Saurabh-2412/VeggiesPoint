@@ -1,0 +1,60 @@
+body{
+    background-color: cornflowerblue;
+    color: cornsilk;
+}
+.heading{
+    border: 2px solid white;
+    border-radius: 2px;
+    text-align: center;
+    font-family: sans-serif;
+}
+/* .header-former{
+    
+} */
+.container{
+    max-width: 50%;
+    height: auto;
+    margin:auto;
+    padding:15px;
+}
+.wrapper{
+    border: 2px dashed black;
+    padding: 15px;
+}
+ul li{
+    text-align: center;
+    list-style-type: none;
+}
+input{
+    max-width: 125px;
+    height: 25px;
+    border-radius: 5px;
+    text-align: center;
+}
+.platess{
+    text-align: center;
+}
+.platess input + label::after{
+    content: '👎';
+}
+.platess input:checked + label::after{
+    content:'👍';
+}
+label{
+    font-size: x-large;
+    font-weight: bold;
+}
+input.larger {
+    width: 12px;
+    height: 15px;
+}
+.add-items{
+    text-align: center;
+}
+@media screen and (max-width: 800px)
+{
+    .wrapper{
+        float: none;
+        width: 90%;
+    }
+}

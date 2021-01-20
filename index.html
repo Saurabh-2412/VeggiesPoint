@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="heading">
+            <h2>VEGGIES</h2>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="wrapper">
+                <div class="header-former">
+                    <h2>LOCAL TAPES</h2>
+                </div>
+                <p></p>
+                <ul class="platess">
+                    <li>Loading Tapas</li>
+                </ul>
+                <form class="add-items">
+                    <input type="text" name="item" placeholder="Item Name" required>
+                    <input type="Submit" value="Add Item">
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        const addItems = document.querySelector('.add-items');
+        const itemsList = document.querySelector('.platess');
+        const items = JSON.parse(localStorage.getItem('items')) || [];
+
+        function addListedItem(e){
+            e.preventDefault();
+            const text = (this.querySelector('[name=item]')).value;
+            const item = {
+                text,
+                done: false
+            }
+            items.push(item)
+            populateList(items,itemsList);
+            localStorage.setItem('items',JSON.stringify(items));
+            this.reset();
+        }
+
+        function populateList(plates = [], platesList) {
+            platesList.innerHTML = plates.map((plate,i) =>{
+                return `
+                    <li>
+                        <input type="checkbox" class="larger" data-index="${i}" id="${i}" ${plate.done ? 'checked' : ''}>
+                        <label for="item${i}">${plate.text}</label>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        addItems.addEventListener('submit',addListedItem);
+        itemsList.addEventListener('click',toggleDone);
+        populateList(items,itemsList);
+
+        function toggleDone(e){
+            if(!e.target.matches('input')) return;//matches is a browser api which checks for input otherwise it skips
+            const el = e.target;
+            const index = el.dataset.index;
+            items[index].done = !items[index].done;
+            localStorage.setItem('items',JSON.stringify(items));
+            populateList(items,itemsList);
+        }
+
+    </script>
+</body>
+</html>
